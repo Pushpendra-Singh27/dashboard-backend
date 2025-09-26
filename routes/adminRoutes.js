@@ -5,7 +5,6 @@ const {
   adminLogout,
   getAdminProfile,
   addNewClient,
-  generateUniqueClientId,
   addNewProjectToClient,
   getAllClients,
   getAllProjects
@@ -43,7 +42,7 @@ router.get('/clients', getAllClients);
 // @route   PUT /api/admin/clients/:clientId/generate-id
 // @desc    Generate a unique client ID and save it to the database
 // @access  Private (Admin)
-router.put('/clients/:clientId/generate-id', generateUniqueClientId);
+// router.put('/clients/:clientId/generate-id', generateUniqueClientId);
 
 // Project Management Routes
 
