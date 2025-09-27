@@ -1,0 +1,58 @@
+-- ADMIN ROUTES --
+
+<< create-admin  >>
+curl --location 'http://localhost:3000/api/admin/create-admin' \
+--header 'Content-Type: application/json' \
+--data-raw '{"userId":"admin001","password":"shiva@123"}'
+
+<< admin login >>
+curl -X POST http://localhost:3000/api/admin/login \
+-H "Content-Type: application/json" \
+-d '{"userId":"admin001","password":"shiva@123"}'
+
+<< admin logout (protected)>>
+curl -X POST http://localhost:3000/api/admin/logout \
+
+<< create new client (protected) >>
+curl -X POST http://localhost:3000/api/admin/create-client \
+-H "Content-Type: application/json" \
+-b "jwt=YOUR_JWT_TOKEN" \
+-d '{"name":"John Doe","email":"john@example.com","password":"clientpass"}'
+
+<< create new project (protected) >>
+curl -X POST http://localhost:3000/api/admin/create-project \
+-H "Content-Type: application/json" \
+-d '{
+  "clientId":"C000001",
+  "name":"Project Alpha",
+  "description":"Test project",
+  "expiryDate":"2025-12-31",
+  "renewalCost":1000
+}'
+
+<< fetch all clients (protected)>>
+curl -X GET http://localhost:3000/api/admin/clients \
+
+<< fetch all projects (protected) >> 
+curl -X GET http://localhost:3000/api/admin/projects \
+
+
+-- CLIENT ROUTES --
+
+<< Client Login >> 
+curl -X POST http://localhost:3000/api/client/login \
+-H "Content-Type: application/json" \
+-d '{"clientId":"C000001","password":"clientpass"}'
+
+<< Client Logout (protected) >>
+curl -X POST http://localhost:3000/api/client/logout \
+
+
+<< fetch client projects (protected) >>
+curl -X GET http://localhost:3000/api/client/C000001/projects \
+
+<< fetch client profile (protected) >>
+curl -X GET http://localhost:3000/api/client/C000001/profile \
+
+<< Get Client Project Details (Protected) >>
+curl -X GET http://localhost:3000/api/client/C000001/projects/P000001 \

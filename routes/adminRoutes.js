@@ -1,59 +1,27 @@
-const express = require('express');
+// routes/adminRoutes.js
+const express = require("express");
 const router = express.Router();
+const { protect } = require("../middlewares/authMiddleware");
 const {
-  adminLogin,
-  adminLogout,
-  getAdminProfile,
-  addNewClient,
-  addNewProjectToClient,
+  createNewAdmin,
+  createNewClient,
+  createNewProject,
   getAllClients,
   getAllProjects
-} = require('../controllers/adminController');
+} = require("../controllers/adminController");
 
-// Authentication Routes
+const { Adminlogin, logout } = require("../controllers/authController");
 
-// @route   POST /api/admin/login
-// @desc    Admin login authentication
-// @access  Public
-router.post('/login', adminLogin);
+// Auth routes
+router.post("/login", Adminlogin);
+router.post("/logout", logout);
+router.post("/create-admin", createNewAdmin);
 
-// @route   POST /api/admin/logout
-// @desc    Admin logout
-// @access  Private (Admin)
-router.post('/logout', adminLogout);
+// Protected admin actions
+router.post("/create-client", protect, createNewClient);
+router.post("/create-project", protect, createNewProject);
 
-// @route   GET /api/admin/profile
-// @desc    Get admin profile information
-// @access  Private (Admin)
-router.get('/profile', getAdminProfile);
-
-// Client Management Routes
-
-// @route   POST /api/admin/clients
-// @desc    Add and save a new client to the database
-// @access  Private (Admin)
-router.post('/clients', addNewClient);
-
-// @route   GET /api/admin/clients
-// @desc    Get all clients with project statistics
-// @access  Private (Admin)
-router.get('/clients', getAllClients);
-
-// @route   PUT /api/admin/clients/:clientId/generate-id
-// @desc    Generate a unique client ID and save it to the database
-// @access  Private (Admin)
-// router.put('/clients/:clientId/generate-id', generateUniqueClientId);
-
-// Project Management Routes
-
-// @route   POST /api/admin/clients/:clientId/projects
-// @desc    Add new project to client ID and save it to database using project ID as primary key
-// @access  Private (Admin)
-router.post('/clients/:clientId/projects', addNewProjectToClient);
-
-// @route   GET /api/admin/projects
-// @desc    Get all projects with client information
-// @access  Private (Admin)
-router.get('/projects', getAllProjects);
+router.get("/clients", protect, getAllClients);
+router.get("/projects", protect, getAllProjects);
 
 module.exports = router;

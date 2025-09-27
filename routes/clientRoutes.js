@@ -1,40 +1,22 @@
-const express = require('express');
+// routes/clientRoutes.js
+const express = require("express");
 const router = express.Router();
+const { protect } = require("../middlewares/authMiddleware");
 const {
-  clientLogin,
-  clientLogout,
   getClientProjects,
   getClientProfile,
   getClientProjectDetails
-} = require('../controllers/clientController');
+} = require("../controllers/clientController");
 
-// Authentication Routes
+const { clientLogin, logout } = require("../controllers/authController");
 
-// @route   POST /api/client/login
-// @desc    Client login using client ID or email with password
-// @access  Public
-router.post('/login', clientLogin);
+// Auth routes
+router.post("/login", clientLogin);
+router.post("/logout", logout);
 
-// @route   POST /api/client/logout
-// @desc    Client logout
-// @access  Private (Client)
-router.post('/logout', clientLogout);
-
-// Client Data Routes
-
-// @route   GET /api/client/:clientId/projects
-// @desc    Get all projects assigned to a specific client
-// @access  Private (Client)
-router.get('/:clientId/projects', getClientProjects);
-
-// @route   GET /api/client/:clientId/profile
-// @desc    Get client profile with project summary
-// @access  Private (Client)
-router.get('/:clientId/profile', getClientProfile);
-
-// @route   GET /api/client/:clientId/projects/:projectId
-// @desc    Get specific project details for a client
-// @access  Private (Client)
-router.get('/:clientId/projects/:projectId', getClientProjectDetails);
+// Protected client routes
+router.get("/:clientId/projects", protect, getClientProjects);
+router.get("/:clientId/profile", protect, getClientProfile);
+router.get("/:clientId/projects/:projectId", protect, getClientProjectDetails);
 
 module.exports = router;
