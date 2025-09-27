@@ -18,6 +18,7 @@ router.post("/logout", logout);
 router.post("/create-admin", createNewAdmin);
 
 // Protected admin actions
+router.post("/create-admin", protect, createNewAdmin);
 router.post("/create-client", protect, createNewClient);
 router.post("/create-project", protect, createNewProject);
 

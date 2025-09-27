@@ -1,14 +1,14 @@
 -- ADMIN ROUTES --
 
-<< create-admin  >>
-curl --location 'http://localhost:3000/api/admin/create-admin' \
---header 'Content-Type: application/json' \
---data-raw '{"userId":"admin001","password":"shiva@123"}'
-
 << admin login >>
 curl -X POST http://localhost:3000/api/admin/login \
 -H "Content-Type: application/json" \
 -d '{"userId":"admin001","password":"shiva@123"}'
+
+<< create-admin (protected) >>
+curl --location 'http://localhost:3000/api/admin/create-admin' \
+--header 'Content-Type: application/json' \
+--data-raw '{"userId":"admin001","password":"shiva@123"}'
 
 << admin logout (protected)>>
 curl -X POST http://localhost:3000/api/admin/logout \
