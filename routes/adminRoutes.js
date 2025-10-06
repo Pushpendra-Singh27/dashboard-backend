@@ -13,6 +13,7 @@ const {
 const { Adminlogin, logout } = require("../controllers/authController");
 
 const { editClient } = require("../controllers/editClientController");
+const { deleteClient } = require("../controllers/deleteClientController");
 
 // Auth routes
 router.post("/login", Adminlogin);
@@ -28,5 +29,6 @@ router.get("/clients", protect, getAllClients);
 router.get("/projects", protect, getAllProjects);
 
 router.patch("/edit-client/:clientId", protect, editClient);
+router.delete("/delete/:clientId", protect, deleteClient);
 
 module.exports = router;
