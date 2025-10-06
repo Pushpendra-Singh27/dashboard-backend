@@ -7,10 +7,12 @@ const {
   createNewClient,
   createNewProject,
   getAllClients,
-  getAllProjects
+  getAllProjects,
 } = require("../controllers/adminController");
 
 const { Adminlogin, logout } = require("../controllers/authController");
+
+const { editClient } = require("../controllers/editClientController");
 
 // Auth routes
 router.post("/login", Adminlogin);
@@ -24,5 +26,7 @@ router.post("/create-project", protect, createNewProject);
 
 router.get("/clients", protect, getAllClients);
 router.get("/projects", protect, getAllProjects);
+
+router.patch("/edit-client/:clientId", protect, editClient);
 
 module.exports = router;
