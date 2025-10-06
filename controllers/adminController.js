@@ -1,7 +1,7 @@
 // controllers/adminController.js
-const Admin = require("../models/admin.js");
-const Client = require("../models/client.js");
-const Project = require("../models/project.js");
+const Admin = require("../models/Admin");
+const Client = require("../models/Client");
+const Project = require("../models/Project");
 const bcrypt = require("bcryptjs");
 
 // Create new admin

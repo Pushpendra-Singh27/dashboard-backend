@@ -1,8 +1,8 @@
 // controllers/adminController.js
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const Admin = require("../models/admin.js");
-const Client = require("../models/client.js");
+const Admin = require("../models/Admin");
+const Client = require("../models/Client");
 require("dotenv").config();
 
 const Adminlogin = async (req, res) => {
