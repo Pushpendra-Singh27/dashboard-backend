@@ -25,13 +25,7 @@ const projectSchema = new mongoose.Schema({
   },
   expiryDate: {
     type: Date,
-    required: [true, 'Expiry date is required'],
-    validate: {
-      validator: function(value) {
-        return value > new Date();
-      },
-      message: 'Expiry date must be in the future'
-    }
+    required: [true, 'Expiry date is required']
   },
   renewalCost: {
     type: Number,
@@ -47,11 +41,35 @@ const projectSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  paymentId: {
+    type: String,
+    default: null
+  },
+  orderId: {
+    type: String,
+    default: null
+  },
   renewalHistory: [{
     renewedDate: {
       type: Date,
       default: Date.now
     },
+    paymentId: {
+      type: String,
+      required: false
+    },
+    orderId: {
+      type: String,
+      required: false
+    },
+    previousExpiryDate: {
+      type: Date,
+      required: false
+    },
+    newExpiryDate: {
+      type: Date,
+      required: false
+    }
   }]
 }, {
   timestamps: true

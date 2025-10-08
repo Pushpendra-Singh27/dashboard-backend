@@ -140,6 +140,7 @@ const createNewProject = async (req, res) => {
       },
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
@@ -160,7 +161,19 @@ const getAllClients = async (req, res) => {
 // Get all projects
 const getAllProjects = async (req, res) => {
   try {
+    // First, update expired projects to expired status
+    const currentDate = new Date();
+    await Project.updateMany(
+      { 
+        expiryDate: { $lt: currentDate },
+        status: { $ne: "expired" }
+      },
+      { $set: { status: "expired" } }
+    );
+
+    // Then fetch all projects with updated status
     const projects = await Project.find().populate("assignedTo", "clientId name email");
+    
     res.status(200).json({
       message: "All projects fetched successfully",
       projects,

@@ -6,6 +6,17 @@ const Project = require("../models/Project");
 const getClientProjects = async (req, res) => {
   try {
     const { clientId } = req.params;
+    
+    // First, update expired projects to expired status
+    const currentDate = new Date();
+    await Project.updateMany(
+      { 
+        expiryDate: { $lt: currentDate },
+        status: { $ne: "expired" }
+      },
+      { $set: { status: "expired" } }
+    );
+    
     const client = await Client.findOne({ clientId }).populate("projects");
     if (!client) {
       return res.status(404).json({ message: "Client not found" });
@@ -24,6 +35,17 @@ const getClientProjects = async (req, res) => {
 const getClientProfile = async (req, res) => {
   try {
     const { clientId } = req.params;
+    
+    // First, update expired projects to expired status
+    const currentDate = new Date();
+    await Project.updateMany(
+      { 
+        expiryDate: { $lt: currentDate },
+        status: { $ne: "expired" }
+      },
+      { $set: { status: "expired" } }
+    );
+    
     const client = await Client.findOne({ clientId }).select("-password").populate("projects");
     if (!client) {
       return res.status(404).json({ message: "Client not found" });
@@ -42,6 +64,16 @@ const getClientProfile = async (req, res) => {
 const getClientProjectDetails = async (req, res) => {
   try {
     const { clientId, projectId } = req.params;
+
+    // First, update expired projects to expired status
+    const currentDate = new Date();
+    await Project.updateMany(
+      { 
+        expiryDate: { $lt: currentDate },
+        status: { $ne: "expired" }
+      },
+      { $set: { status: "expired" } }
+    );
 
     const client = await Client.findOne({ clientId });
     if (!client) {

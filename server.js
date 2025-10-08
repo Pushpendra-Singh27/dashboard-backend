@@ -18,9 +18,13 @@ app.use(cookieParser());
 // Routes
 const adminRoutes = require("./routes/adminRoutes");
 const clientRoutes = require("./routes/clientRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
+const projectRoutes = require("./routes/projectRoutes");
 
 app.use("/api/admin", adminRoutes);
 app.use("/api/client", clientRoutes);
+app.use("/api/payment", paymentRoutes);
+app.use("/api/project", projectRoutes);
 
 const port = process.env.PORT || 3001;
 
@@ -32,6 +36,8 @@ mongoose
       console.log(`🚀 Server running on port ${port}`);
       console.log(`📊 Admin API at /api/admin`);
       console.log(`📊 Client API at /api/client`);
+      console.log(`💳 Payment API at /api/payment`);
+      console.log(`📋 Project API at /api/project`);
     });
   })
   .catch((error) => {

@@ -15,7 +15,8 @@ const { Adminlogin, logout } = require("../controllers/authController");
 const { editClient } = require("../controllers/editClientController");
 const { deleteClient } = require("../controllers/deleteClientController");
 const { changeStatusOfClient } = require("../controllers/changeStatusOfClient");
-
+const { editProject } = require("../controllers/editProjectController");
+const { deleteProject } = require("../controllers/deleteProjectController");
 // Auth routes
 router.post("/login", Adminlogin);
 router.post("/logout", logout);
@@ -32,5 +33,9 @@ router.get("/projects", protect, getAllProjects);
 router.patch("/edit-client/:clientId", protect, editClient);
 router.delete("/delete/:clientId", protect, deleteClient);
 router.patch("/change-status/:clientId", protect, changeStatusOfClient);
+
+// Project routes
+router.patch("/edit-project/:projectId", protect, editProject);
+router.delete("/delete-project/:projectId",protect, deleteProject);
 
 module.exports = router;
