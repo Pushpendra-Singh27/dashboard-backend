@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 app.use(cors({
-  origin: ['https://renew-my-service.vercel.app', 'http://localhost:3000'], // Your frontend URLs
+  origin: ['https://renew-my-service.vercel.app', 'http://localhost:3000', 'https://renew-my-service-k3yhwwxv8-pushpendras-projects-9183daec.vercel.app'], // Your frontend URLs
   credentials: true, // Allow credentials (cookies, authorization headers)
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
