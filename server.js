@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 app.use(cors({
-  origin: ['https://renew-my-service.vercel.app', 'http://127.0.0.1:8080'], // Your frontend URLs
+  origin: ['https://renew-my-service.vercel.app', 'http://localhost:3000'], // Your frontend URLs
   credentials: true, // Allow credentials (cookies, authorization headers)
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
@@ -21,10 +21,10 @@ const clientRoutes = require("./routes/clientRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 
-app.use("/api/admin", adminRoutes);
-app.use("/api/client", clientRoutes);
-app.use("/api/payment", paymentRoutes);
-app.use("/api/project", projectRoutes);
+app.use("/admin", adminRoutes);
+app.use("/client", clientRoutes);
+app.use("/payment", paymentRoutes);
+app.use("/project", projectRoutes);
 
 const port = process.env.PORT || 3001;
 
