@@ -37,6 +37,12 @@ const projectSchema = new mongoose.Schema({
     enum: ['active', 'expired', 'renewed', 'cancelled'],
     default: 'active'
   },
+  serviceProvider: {
+    type: String,
+    required: false,
+    trim: true,
+    maxlength: [200, 'Service provider name cannot be more than 200 characters']
+  },
   startDate: {
     type: Date,
     default: Date.now

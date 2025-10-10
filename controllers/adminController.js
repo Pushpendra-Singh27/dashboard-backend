@@ -93,7 +93,7 @@ const createNewClient = async (req, res) => {
 
 const createNewProject = async (req, res) => {
   try {
-    const { clientId, name, description, expiryDate, renewalCost } = req.body;
+    const { clientId, name, description, expiryDate, renewalCost, serviceProvider } = req.body;
 
     // Check if client exists
     const client = await Client.findOne({ clientId });
@@ -118,6 +118,7 @@ const createNewProject = async (req, res) => {
       expiryDate,
       renewalCost,
       assignedTo: client._id,
+      serviceProvider: serviceProvider || undefined, // Optional field
     });
 
     await newProject.save();
@@ -136,6 +137,7 @@ const createNewProject = async (req, res) => {
         expiryDate: newProject.expiryDate,
         renewalCost: newProject.renewalCost,
         status: newProject.status,
+        serviceProvider: newProject.serviceProvider,
         assignedTo: client.clientId,
       },
     });

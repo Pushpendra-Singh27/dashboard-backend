@@ -2,14 +2,14 @@ const Project = require('../models/Project');
 const mongoose = require('mongoose');
 
 /**
- * Edit project fields: name, assignedTo, description, expiryDate, renewalCost, status
+ * Edit project fields: name, assignedTo, description, expiryDate, renewalCost, status, serviceProvider
  * @route PUT /api/projects/:projectId
  * @access Private (assuming authentication middleware)
  */
 const editProject = async (req, res) => {
   try {
     const { projectId } = req.params;
-    const { name, assignedTo, description, expiryDate, renewalCost, status } = req.body;
+    const { name, assignedTo, description, expiryDate, renewalCost, status, serviceProvider } = req.body;
 
     // Validate projectId
     if (!projectId) {
@@ -92,6 +92,11 @@ const editProject = async (req, res) => {
         });
       }
       updateFields.status = status;
+    }
+
+    if (serviceProvider !== undefined) {
+      // Allow empty string or null to clear the field
+      updateFields.serviceProvider = serviceProvider ? serviceProvider.trim() : null;
     }
 
     // Check if at least one field is provided for update
